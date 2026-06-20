@@ -102,7 +102,7 @@ function ChatShell({
 }: {
   threadId: string;
   initialMessages: UIMessage[];
-  transport: DefaultChatTransport;
+  transport: DefaultChatTransport<UIMessage>;
   threads: ChatThread[];
   onThreadsChange: (t: ChatThread[]) => void;
   onNewThread: () => void;
