@@ -168,7 +168,7 @@ function Dashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Top vendedores</CardTitle>
-            <CardDescription>Ranking de atingimento de meta</CardDescription>
+            <CardDescription>Ranking por receita</CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
@@ -178,7 +178,6 @@ function Dashboard() {
                   <TableHead>Regional</TableHead>
                   <TableHead className="text-right">Deals</TableHead>
                   <TableHead className="text-right">Receita</TableHead>
-                  <TableHead className="text-right">Meta</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -188,11 +187,6 @@ function Dashboard() {
                     <TableCell className="text-muted-foreground">{s.regional}</TableCell>
                     <TableCell className="text-right tabular-nums">{s.deals}</TableCell>
                     <TableCell className="text-right tabular-nums">{formatBRL(s.receita)}</TableCell>
-                    <TableCell className="text-right">
-                      <Badge variant={s.atingimento >= 100 ? "default" : "secondary"}>
-                        {s.atingimento}%
-                      </Badge>
-                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
