@@ -33,11 +33,11 @@ export const topProducts = [
 ];
 
 export const topSellers = [
-  { nome: "Ana Carvalho", regional: "Sudeste", receita: 1_240_000, deals: 312, atingimento: 128 },
-  { nome: "Bruno Lima", regional: "Sul", receita: 980_000, deals: 271, atingimento: 116 },
-  { nome: "Carla Mendes", regional: "Nordeste", receita: 870_000, deals: 248, atingimento: 109 },
-  { nome: "Diego Souza", regional: "Sudeste", receita: 820_000, deals: 230, atingimento: 102 },
-  { nome: "Eduarda Pires", regional: "Centro-Oeste", receita: 690_000, deals: 198, atingimento: 96 },
+  { nome: "Ana Carvalho", regional: "Sudeste", receita: 1_240_000, deals: 312 },
+  { nome: "Bruno Lima", regional: "Sul", receita: 980_000, deals: 271 },
+  { nome: "Carla Mendes", regional: "Nordeste", receita: 870_000, deals: 248 },
+  { nome: "Diego Souza", regional: "Sudeste", receita: 820_000, deals: 230 },
+  { nome: "Eduarda Pires", regional: "Centro-Oeste", receita: 690_000, deals: 198 },
 ];
 
 export const customerSegments = [
