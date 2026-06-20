@@ -73,12 +73,6 @@ function ChatThreadPage() {
       transport={transport}
       threads={threads}
       onSelectThread={(id) => navigate({ to: "/chat/$threadId", params: { threadId: id } })}
-      onThreadsChange={setThreads}
-      threadId={threadId}
-      initialMessages={initialMessages}
-      transport={transport}
-      threads={threads}
-      onThreadsChange={setThreads}
       onNewThread={() => {
         const id = crypto.randomUUID();
         upsertThread({ id, title: "Nova conversa", updatedAt: Date.now(), messages: [] });
@@ -104,13 +98,13 @@ function ChatThreadPage() {
 }
 
 function ChatShell({
-  threadId, initialMessages, transport, threads, onNewThread, onDeleteThread,
+  threadId, initialMessages, transport, threads, onNewThread, onDeleteThread, onSelectThread,
 }: {
   threadId: string;
   initialMessages: UIMessage[];
   transport: DefaultChatTransport<UIMessage>;
   threads: ChatThread[];
-  onThreadsChange: (t: ChatThread[]) => void;
+  onSelectThread: (id: string) => void;
   onNewThread: () => void;
   onDeleteThread: (id: string) => void;
 }) {
