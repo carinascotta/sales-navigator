@@ -74,7 +74,7 @@ function Dashboard() {
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Receita mensal vs. meta</CardTitle>
+            <CardTitle>Receita mensal</CardTitle>
             <CardDescription>Últimos 12 meses</CardDescription>
           </CardHeader>
           <CardContent className="h-[320px]">
@@ -100,7 +100,6 @@ function Dashboard() {
                   formatter={(v: number) => formatBRL(v)}
                 />
                 <Area type="monotone" dataKey="receita" stroke="var(--color-chart-1)" fill="url(#g1)" strokeWidth={2} />
-                <Area type="monotone" dataKey="meta" stroke="var(--color-chart-3)" fill="transparent" strokeDasharray="5 5" strokeWidth={2} />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
