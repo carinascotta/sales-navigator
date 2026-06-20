@@ -15,6 +15,9 @@ import {
 } from "@/components/ai-elements/prompt-input";
 import { Shimmer } from "@/components/ai-elements/shimmer";
 import {
+  ChartPart, FilePart, type ChartSpec, type FileSpec,
+} from "@/components/chat-parts";
+import {
   loadThreads, upsertThread, deleteThread, getThread, deriveTitle, type ChatThread,
 } from "@/lib/chat-threads";
 
@@ -29,10 +32,10 @@ export const Route = createFileRoute("/chat/$threadId")({
 });
 
 const SUGGESTIONS = [
-  "Qual regional cresceu mais este trimestre?",
-  "Top 3 produtos por receita em setembro",
-  "Resuma o segmento VIP e dê 2 ações",
-  "Quais clientes estão em risco de churn?",
+  "Compare a receita por regional em um gráfico",
+  "Mostre a evolução mensal da receita",
+  "Resuma os segmentos Ouro, Prata e Bronze",
+  "Exporte a receita por regional em CSV",
 ];
 
 function ChatThreadPage() {
@@ -226,20 +229,28 @@ function ChatShell({
               </div>
             )}
 
-            {messages.map((m) => {
-              const text = m.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
-              return (
-                <Message key={m.id} from={m.role}>
-                  <MessageContent>
-                    {m.role === "assistant" ? (
-                      <MessageResponse>{text}</MessageResponse>
-                    ) : (
-                      <span className="whitespace-pre-wrap">{text}</span>
-                    )}
-                  </MessageContent>
-                </Message>
-              );
-            })}
+            {messages.map((m) => (
+              <Message key={m.id} from={m.role}>
+                <MessageContent>
+                  {m.parts.map((part, i) => {
+                    if (part.type === "text") {
+                      return m.role === "assistant" ? (
+                        <MessageResponse key={i}>{part.text}</MessageResponse>
+                      ) : (
+                        <span key={i} className="whitespace-pre-wrap">{part.text}</span>
+                      );
+                    }
+                    if (part.type === "tool-renderChart" && part.state === "output-available") {
+                      return <ChartPart key={i} spec={part.output as ChartSpec} />;
+                    }
+                    if (part.type === "tool-generateFile" && part.state === "output-available") {
+                      return <FilePart key={i} file={part.output as FileSpec} />;
+                    }
+                    return null;
+                  })}
+                </MessageContent>
+              </Message>
+            ))}
 
             {status === "submitted" && (
               <Message from="assistant">
@@ -266,7 +277,7 @@ function ChatShell({
               </PromptInputFooter>
             </PromptInput>
             <p className="mt-2 text-center text-xs text-muted-foreground">
-              Respostas geradas por IA com dados fictícios para demonstração.
+              Assistente com IA (Claude) sobre os dados reais de Bases_Workshop.xlsx. Pode gerar gráficos e arquivos para download.
             </p>
           </div>
         </div>

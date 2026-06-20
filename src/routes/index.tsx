@@ -10,14 +10,31 @@ import {
   BarChart,
   Bar,
 } from "recharts";
-import { ArrowDownRight, ArrowUpRight, DollarSign, ShoppingCart, Target, Receipt } from "lucide-react";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  CircleCheck,
+  Database,
+  DollarSign,
+  Percent,
+  Receipt,
+  ShoppingCart,
+  TriangleAlert,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
 import {
-  salesMonthly, salesByRegion, topProducts, topSellers, kpis, formatBRL, formatNumber,
+  salesMonthly,
+  salesByRegion,
+  salesDataMetadata,
+  topProducts,
+  topSellers,
+  kpis,
+  formatBRL,
+  formatNumber,
 } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/")({
@@ -33,19 +50,23 @@ export const Route = createFileRoute("/")({
 });
 
 function KpiCard({
-  label, value, delta, icon: Icon,
-}: { label: string; value: string; delta: number; icon: typeof DollarSign }) {
-  const up = delta >= 0;
+  label, value, delta, detail, icon: Icon,
+}: { label: string; value: string; delta: number | null; detail: string; icon: typeof DollarSign }) {
+  const up = delta !== null && delta >= 0;
   return (
     <Card>
       <CardContent className="flex items-start justify-between gap-4 p-5">
         <div>
           <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
           <div className="mt-2 text-2xl font-semibold tracking-tight">{value}</div>
-          <div className={`mt-2 flex items-center gap-1 text-xs ${up ? "text-success" : "text-destructive"}`}>
-            {up ? <ArrowUpRight className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}
-            {Math.abs(delta).toFixed(1)}% vs período anterior
-          </div>
+          {delta === null ? (
+            <div className="mt-2 text-xs text-muted-foreground">{detail}</div>
+          ) : (
+            <div className={`mt-2 flex items-center gap-1 text-xs ${up ? "text-success" : "text-destructive"}`}>
+              {up ? <ArrowUpRight className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}
+              {Math.abs(delta).toFixed(1)}% vs período anterior
+            </div>
+          )}
         </div>
         <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/15 text-primary">
           <Icon className="h-5 w-5" />
@@ -60,21 +81,45 @@ function Dashboard() {
     <div className="space-y-6 p-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Dashboard de Vendas</h1>
-        <p className="text-sm text-muted-foreground">Acompanhamento de receita, produtos e regionais — dados fictícios.</p>
+        <p className="text-sm text-muted-foreground">
+          Dados reais de 1º de janeiro a 25 de dezembro de 2025.
+        </p>
+      </div>
+
+      <div className="grid gap-3 rounded-lg border border-border bg-card/60 p-4 text-sm md:grid-cols-[1fr_auto_auto] md:items-center">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/15 text-primary">
+            <Database className="h-4 w-4" />
+          </div>
+          <div>
+            <div className="font-medium">{salesDataMetadata.source}</div>
+            <div className="text-xs text-muted-foreground">
+              {formatNumber(salesDataMetadata.processedRows)} linhas processadas
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-success">
+          <CircleCheck className="h-4 w-4" />
+          Sem duplicidades ou cruzamentos pendentes
+        </div>
+        <div className="flex items-center gap-2 text-xs text-warning">
+          <TriangleAlert className="h-4 w-4" />
+          {formatNumber(salesDataMetadata.sourceMarginAnomalies)} margens recalculadas
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <KpiCard label="Receita YTD" value={formatBRL(kpis.receitaAno)} delta={kpis.variacaoReceita} icon={DollarSign} />
-        <KpiCard label="Ticket médio" value={formatBRL(kpis.ticketMedio)} delta={kpis.variacaoTicket} icon={Receipt} />
-        <KpiCard label="Pedidos" value={formatNumber(kpis.pedidos)} delta={kpis.variacaoPedidos} icon={ShoppingCart} />
-        <KpiCard label="Conversão" value={`${kpis.conversao}%`} delta={kpis.variacaoConversao} icon={Target} />
+        <KpiCard label="Receita 2025" value={formatBRL(kpis.receitaAno)} delta={kpis.variacaoReceita} detail="Base anterior não disponível" icon={DollarSign} />
+        <KpiCard label="Ticket médio" value={formatBRL(kpis.ticketMedio)} delta={kpis.variacaoTicket} detail={`${formatNumber(kpis.pedidos)} pedidos`} icon={Receipt} />
+        <KpiCard label="Pedidos" value={formatNumber(kpis.pedidos)} delta={kpis.variacaoPedidos} detail={`${formatNumber(kpis.unidades)} unidades vendidas`} icon={ShoppingCart} />
+        <KpiCard label="Margem bruta" value={`${kpis.margemBruta.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`} delta={kpis.variacaoMargem} detail="Calculada por preço líquido e custo" icon={Percent} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle>Receita mensal</CardTitle>
-            <CardDescription>Últimos 12 meses</CardDescription>
+            <CardDescription>Janeiro a 25 de dezembro de 2025</CardDescription>
           </CardHeader>
           <CardContent className="h-[320px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -107,7 +152,7 @@ function Dashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Receita por regional</CardTitle>
-            <CardDescription>YTD</CardDescription>
+            <CardDescription>Período consolidado</CardDescription>
           </CardHeader>
           <CardContent className="h-[320px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -149,10 +194,10 @@ function Dashboard() {
               </TableHeader>
               <TableBody>
                 {topProducts.map((p) => (
-                  <TableRow key={p.sku}>
+                  <TableRow key={p.id}>
                     <TableCell>
                       <div className="font-medium">{p.nome}</div>
-                      <div className="text-xs text-muted-foreground">{p.sku}</div>
+                      <div className="text-xs text-muted-foreground">Produto #{p.id}</div>
                     </TableCell>
                     <TableCell><Badge variant="secondary">{p.categoria}</Badge></TableCell>
                     <TableCell className="text-right tabular-nums">{formatNumber(p.unidades)}</TableCell>
@@ -181,7 +226,7 @@ function Dashboard() {
               </TableHeader>
               <TableBody>
                 {topSellers.map((s) => (
-                  <TableRow key={s.nome}>
+                  <TableRow key={s.id}>
                     <TableCell className="font-medium">{s.nome}</TableCell>
                     <TableCell className="text-muted-foreground">{s.regional}</TableCell>
                     <TableCell className="text-right tabular-nums">{s.deals}</TableCell>
