@@ -72,6 +72,12 @@ function ChatThreadPage() {
       initialMessages={initialMessages}
       transport={transport}
       threads={threads}
+      onSelectThread={(id) => navigate({ to: "/chat/$threadId", params: { threadId: id } })}
+      onThreadsChange={setThreads}
+      threadId={threadId}
+      initialMessages={initialMessages}
+      transport={transport}
+      threads={threads}
       onThreadsChange={setThreads}
       onNewThread={() => {
         const id = crypto.randomUUID();
