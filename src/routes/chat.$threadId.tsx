@@ -175,8 +175,6 @@ function ChatShell({
                     }}
                     className="flex flex-1 items-center gap-2 truncate text-left"
                   >
-                    className="flex flex-1 items-center gap-2 truncate text-left"
-                  >
                     <MessageSquare className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
                     <span className="truncate">{t.title}</span>
                   </button>
