@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { ArrowDownRight, ArrowUpRight, DollarSign, ShoppingCart, Target, Receipt } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
