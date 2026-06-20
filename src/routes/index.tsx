@@ -9,7 +9,6 @@ import {
   Tooltip,
   BarChart,
   Bar,
-  Legend,
 } from "recharts";
 import { ArrowDownRight, ArrowUpRight, DollarSign, ShoppingCart, Target, Receipt } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
