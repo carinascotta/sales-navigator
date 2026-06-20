@@ -171,12 +171,10 @@ function ChatShell({
                   <button
                     type="button"
                     onClick={() => {
-                      if (!active) {
-                        window.history.pushState({}, "", `/chat/${t.id}`);
-                        // navigate via location reload-free
-                        window.dispatchEvent(new PopStateEvent("popstate"));
-                      }
+                      if (!active) onSelectThread(t.id);
                     }}
+                    className="flex flex-1 items-center gap-2 truncate text-left"
+                  >
                     className="flex flex-1 items-center gap-2 truncate text-left"
                   >
                     <MessageSquare className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
