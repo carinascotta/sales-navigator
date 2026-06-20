@@ -1,18 +1,18 @@
 // Dados fictícios — serão substituídos por dados reais pela equipe de dev.
 
 export const salesMonthly = [
-  { mes: "Jan", receita: 1_240_000, meta: 1_200_000 },
-  { mes: "Fev", receita: 1_080_000, meta: 1_200_000 },
-  { mes: "Mar", receita: 1_410_000, meta: 1_300_000 },
-  { mes: "Abr", receita: 1_520_000, meta: 1_350_000 },
-  { mes: "Mai", receita: 1_690_000, meta: 1_400_000 },
-  { mes: "Jun", receita: 1_780_000, meta: 1_500_000 },
-  { mes: "Jul", receita: 1_860_000, meta: 1_550_000 },
-  { mes: "Ago", receita: 1_920_000, meta: 1_600_000 },
-  { mes: "Set", receita: 2_010_000, meta: 1_700_000 },
-  { mes: "Out", receita: 2_180_000, meta: 1_800_000 },
-  { mes: "Nov", receita: 2_410_000, meta: 1_900_000 },
-  { mes: "Dez", receita: 2_690_000, meta: 2_100_000 },
+  { mes: "Jan", receita: 1_240_000 },
+  { mes: "Fev", receita: 1_080_000 },
+  { mes: "Mar", receita: 1_410_000 },
+  { mes: "Abr", receita: 1_520_000 },
+  { mes: "Mai", receita: 1_690_000 },
+  { mes: "Jun", receita: 1_780_000 },
+  { mes: "Jul", receita: 1_860_000 },
+  { mes: "Ago", receita: 1_920_000 },
+  { mes: "Set", receita: 2_010_000 },
+  { mes: "Out", receita: 2_180_000 },
+  { mes: "Nov", receita: 2_410_000 },
+  { mes: "Dez", receita: 2_690_000 },
 ];
 
 export const salesByRegion = [
@@ -33,11 +33,11 @@ export const topProducts = [
 ];
 
 export const topSellers = [
-  { nome: "Ana Carvalho", regional: "Sudeste", receita: 1_240_000, deals: 312, atingimento: 128 },
-  { nome: "Bruno Lima", regional: "Sul", receita: 980_000, deals: 271, atingimento: 116 },
-  { nome: "Carla Mendes", regional: "Nordeste", receita: 870_000, deals: 248, atingimento: 109 },
-  { nome: "Diego Souza", regional: "Sudeste", receita: 820_000, deals: 230, atingimento: 102 },
-  { nome: "Eduarda Pires", regional: "Centro-Oeste", receita: 690_000, deals: 198, atingimento: 96 },
+  { nome: "Ana Carvalho", regional: "Sudeste", receita: 1_240_000, deals: 312 },
+  { nome: "Bruno Lima", regional: "Sul", receita: 980_000, deals: 271 },
+  { nome: "Carla Mendes", regional: "Nordeste", receita: 870_000, deals: 248 },
+  { nome: "Diego Souza", regional: "Sudeste", receita: 820_000, deals: 230 },
+  { nome: "Eduarda Pires", regional: "Centro-Oeste", receita: 690_000, deals: 198 },
 ];
 
 export const customerSegments = [

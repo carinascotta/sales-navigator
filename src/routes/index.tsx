@@ -9,7 +9,6 @@ import {
   Tooltip,
   BarChart,
   Bar,
-  Legend,
 } from "recharts";
 import { ArrowDownRight, ArrowUpRight, DollarSign, ShoppingCart, Target, Receipt } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -74,7 +73,7 @@ function Dashboard() {
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Receita mensal vs. meta</CardTitle>
+            <CardTitle>Receita mensal</CardTitle>
             <CardDescription>Últimos 12 meses</CardDescription>
           </CardHeader>
           <CardContent className="h-[320px]">
@@ -100,7 +99,6 @@ function Dashboard() {
                   formatter={(v: number) => formatBRL(v)}
                 />
                 <Area type="monotone" dataKey="receita" stroke="var(--color-chart-1)" fill="url(#g1)" strokeWidth={2} />
-                <Area type="monotone" dataKey="meta" stroke="var(--color-chart-3)" fill="transparent" strokeDasharray="5 5" strokeWidth={2} />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
@@ -169,7 +167,7 @@ function Dashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Top vendedores</CardTitle>
-            <CardDescription>Ranking de atingimento de meta</CardDescription>
+            <CardDescription>Ranking por receita</CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
@@ -179,7 +177,6 @@ function Dashboard() {
                   <TableHead>Regional</TableHead>
                   <TableHead className="text-right">Deals</TableHead>
                   <TableHead className="text-right">Receita</TableHead>
-                  <TableHead className="text-right">Meta</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -189,11 +186,6 @@ function Dashboard() {
                     <TableCell className="text-muted-foreground">{s.regional}</TableCell>
                     <TableCell className="text-right tabular-nums">{s.deals}</TableCell>
                     <TableCell className="text-right tabular-nums">{formatBRL(s.receita)}</TableCell>
-                    <TableCell className="text-right">
-                      <Badge variant={s.atingimento >= 100 ? "default" : "secondary"}>
-                        {s.atingimento}%
-                      </Badge>
-                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
